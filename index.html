@@ -11,7 +11,13 @@
     <canvas id="jsCanvas" class="canvas"></canvas> 
     <!-- JS를 작업할땐 ID를 사용하고, CSS를 작업할땐 class사용-->
     <div class="controls">
+      <!--Fill 및 Save 버튼 생성-->
+      <div class="controls__btns">
+        <button id="jsMode">Fill</button>
+        <button id="jsSave">Save</button>
+      </div>
       <div class="controls__colors" id="jsColors">
+        <!-- 동일 코드 동시에 입력 Alt+Shift+DRAG // 주석처리 Ctrl+/ -->
         <div class="controls__color" style="background-color:#2c2c2c"></div>
         <div class="controls__color" style="background-color:#ffffff"></div>
         <div class="controls__color" style="background-color:#FF3B30"></div>
