@@ -6,6 +6,12 @@ const range = document.getElementById("jsRange"); // 선 굵기
 const mode = document.getElementById("jsMode"); // 버튼
 const saveBtn = document.getElementById("jsSave"); // save 버튼 기능 만들기
 
+// 텍스트 입력 정의
+const font = "14px sans-serif"; // 폰트 정의 <<<<<<<<<<<<<<<<<< 0721
+// let rangeValue;
+// let color;
+// let mouse = false;
+
 const INITIAL_COLOR = "#2c2c2c"; // 디폴트 값
 const CANVAS_SIZE = 700;
 
@@ -127,6 +133,10 @@ if (saveBtn) {
     saveBtn.addEventListener("click", handleSaveClick);
 }
 
+
+/* 기능 추가 */
+
+/* 이미지 불러오기 추가 < 0715 */
 document.getElementById("img1").addEventListener("click", imageLoadCanvas); // 클릭 이벤트
 const img = new Image();
 
@@ -137,3 +147,55 @@ function imageLoadCanvas() {
   ctx.fillStyle = ptrn;
   ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
 }
+
+
+/* 텍스트 입력 기능 추가 <<<<< 0722 */
+// 텍스트 입력
+
+let hasInput = false;
+
+
+canvas.onclick = function(e) {
+    if (hasInput) return;
+    addInput(e.offsetX, e.offsetY);
+    console.log(e.offsetX);
+    console.log(e.offsetY);
+}
+
+function addInput(x, y) {
+    const input = document.createElement('input');
+
+    input.type = 'text';
+    input.style.position = 'absolute';
+    input.style.left = (x) + 'px';
+    input.style.top = (y) + 'px';
+
+    input.onkeydown = handleEnter;
+
+    document.body.appendChild(input);
+
+    input.focus();
+
+    hasInput = true;
+}
+
+//Key handler for input box:
+function handleEnter(e) {
+    let keyCode = e.keyCode;
+    if (keyCode === 13) {
+        drawText(this.value, parseInt(this.style.left), parseInt(this.style.top));
+        document.body.removeChild(this);
+        hasInput = false;
+    }
+}
+
+// Draw the text onto canvas:
+function drawText(txt, x, y) {
+    ctx.font = font;
+    ctx.fillStyle = '#000';
+    ctx.fillText(txt, x, y);
+}
+
+// 글자 입력 참고1 : https://developer.mozilla.org/ko/docs/Web/API/Canvas_API/Tutorial/Drawing_text
+// 글자 입력 참고2 : https://stackoverflow.com/questions/21011931/how-to-embed-an-input-or-textarea-in-a-canvas-element
+// 글자 입력 참고3 : https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=websearch&logNo=221571168786 // 한국블로그
