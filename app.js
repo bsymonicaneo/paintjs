@@ -126,3 +126,14 @@ if (mode) {
 if (saveBtn) {
     saveBtn.addEventListener("click", handleSaveClick);
 }
+
+document.getElementById("img1").addEventListener("click", imageLoadCanvas); // 클릭 이벤트
+const img = new Image();
+
+img.src = "img/img1.jpg";
+function imageLoadCanvas() {
+  console.log("click buntton");
+  const ptrn = ctx.createPattern(img, "repeat"); // Create a pattern with this image, and set it to "repeat".
+  ctx.fillStyle = ptrn;
+  ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
+}
